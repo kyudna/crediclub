@@ -13,7 +13,7 @@
 ```zsh
 git clone https://github.com/xk4i/crediclub.git
 ```
-- Create python venv:
+- Create python virtual environment:
 ```zsh
 cd crediclub
 python -m venv venv
