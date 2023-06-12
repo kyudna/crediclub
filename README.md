@@ -53,6 +53,25 @@ Go to `http://127.0.0.1:8080/docs` to see the front-end API.
 
 ![](https://github.com/xk4i/crediclub/blob/main/screenshots/preview.PNG?raw=true)
 
+### Routes
+- GET
+    - `/api/invoices/` - En esta ruta podrás obtener todas las facturas registradas.
+    - `/api/invoices/{invoiceSupplierName}/` - En esta ruta, enviando el nombre del proveedor como parámetro, podrás obtener las facturas registradas correspondientes al proveedor solicitado.
+    - `/api/paids/` - En esta ruta podrás obtener todos los pagos registrados.
+    - `/api/download/` - Haciendo una petición a esta ruta, podrás descargar un archivo excel con todas las facturas registradas.
+
+- POST
+    - `/api/invoices/` - En esta ruta, enviando un json, podrás ser capáz de registrar una nueva factura:
+    ```
+    {
+      "invoiceDate": "2023-06-12",
+      "invoiceClient": "string",
+      "invoiceMount": 0,
+      "invoiceSupplier": "string"
+    }
+    ```
+    - `/api/upload/` - En esta ruta, podrás subir el excel que contiene los datos de la factura para registrar nuevos pagos.
+  
 ## Solution
 
 - El problema se abordó analizando primero la estructura que debería tener la base de datos conforme al requerimiento principal, tratando de satisfacer la necesidad al mismo tiempo de simplificar después el proceso de código.
