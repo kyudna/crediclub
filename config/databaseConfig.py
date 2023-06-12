@@ -1,11 +1,11 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 
-userName = "postgres"
-userPassword = "root"
+userName = ""
+userPassword = ""
 
-server = "localhost"
-databaseName = "crediclub"
+server = ""
+databaseName = ""
 
 DATABASE_URL = "postgresql://"+userName+":"+userPassword+"@"+server+"/"+databaseName
 
