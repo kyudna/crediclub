@@ -59,12 +59,13 @@ Go to `http://127.0.0.1:8080/docs` to see the front-end API.
     > Como la estructura de las facturas es la misma `[Fecha, Client, Monto, Proveedor]`, decidí implementar solo una tabla para las mismas.
 
 - Teniendo la base de datos estructurada, se procedió con la estructura y diseño del proyecto, diviendo por capas las necesidades que se iban a requerir para posteriormente empezar con el desarrollo.
+- Se creó el modelo y el esquema que el `orm` utilizaría para relacionar los datos ingresados/enviados con la base de datos.
 
     > El principal problema en la parte del desarrollo, fue el subir el archivo con los datos, hacer las validaciones correspondientes y posteriormente hacer un `insert` en la base de datos.
 
     > Se planteó primero validar que se estuviera subiendo un archivo excel, para posteriormente validar las columnas, si las columnas no eran las propuestas, se enviaría un error `406`, explicando que las columnas no concuerdan.
 
-    > Para finalizar, se validaron los datos por fila para después crear una lista con los modelos, `agregando` a la cola del engine los modelos a insertar, para posteriormente hacer el `commit` base de datos.
+    > Para finalizar, se validaron los datos por fila para después crear una lista con los modelos, `agregando` a la cola del engine los modelos a insertar, para posteriormente hacer el `commit` a la base de datos.
 
 
 
