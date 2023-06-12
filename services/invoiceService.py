@@ -28,7 +28,6 @@ def getAllPaidsReceived(db: Session):
     count = 0
 
     if not dbInvoicesList:
-        print("hola")
         raise HTTPException(status_code = 202, detail = "No invoices registered")
     
     for x in dbInvoicesList:
