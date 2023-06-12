@@ -2,6 +2,8 @@
     <h1>Crediclub Tech Test</h1>
 </div> 
 
+> Rest API builded with FastApi 
+
 ## Requirements
 - Python 3.7+.
 - PostgreSQL with a database created for the project.
