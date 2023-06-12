@@ -17,7 +17,6 @@ def processData(file):
 
     invoices = []
     invoicesColumns = ["Fecha", "Cliente", "Monto", "Proveedor"]
-
     if(df.empty):
         raise HTTPException(status_code = 406, detail = "The excel can't be empty")
     else:
@@ -42,6 +41,7 @@ def processData(file):
                         invoiceMount = df.loc[i, "Monto"],
                         invoiceSupplier = df.loc[i, "Proveedor"]
                     )
+                    
                     invoices.append(invoice)
                 except:
                     raise HTTPException(status_code = 500, detail = "Something fail")

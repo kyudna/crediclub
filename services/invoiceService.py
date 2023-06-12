@@ -12,6 +12,7 @@ def getAllInvoices(db: Session):
     return db.query(invoiceModel.Invoice).all()
 
 def getAllInvoicesBySupplier(invoiceSupplierName: str, db: Session):
+
     dbInvoices = db.query(invoiceModel.Invoice).filter(invoiceModel.Invoice.invoiceSupplier == invoiceSupplierName)
     
     dbInvoicesList = list(map(invoiceSchema.Invoice.from_orm, dbInvoices))
@@ -19,7 +20,22 @@ def getAllInvoicesBySupplier(invoiceSupplierName: str, db: Session):
     if not dbInvoicesList:
         raise HTTPException(status_code = 202, detail = "Invoices for that Supplier not found")
 
-    return  dbInvoicesList
+    return dbInvoicesList
+
+def getAllPaidsReceived(db: Session):
+    dbInvoices = db.query(invoiceModel.Invoice).all()
+    dbInvoicesList = list(map(invoiceSchema.Invoice.from_orm, dbInvoices))
+    count = 0
+
+    if not dbInvoicesList:
+        print("hola")
+        raise HTTPException(status_code = 202, detail = "No invoices registered")
+    
+    for x in dbInvoicesList:
+        count+=x.invoiceMount
+
+    paids = {'Cantidad de pagos recibidos' : len(dbInvoicesList), 'Total de pagos recibidos' : float("{:.2f}".format(count))}
+    return paids
 
 def createInvoice(db: Session, invoice: invoiceSchema.InvoiceCreate):
     dbInvoice = invoiceModel.Invoice(
@@ -44,7 +60,7 @@ def downloadExcel(db: Session, pathPagosCSV: str):
     invoicesQueryList = list(map(invoiceSchema.Invoice.from_orm, invoicesQuery))
 
     if not invoicesQueryList:
-        raise HTTPException(status_code = 202, detail = "No invoices to download")
+        raise HTTPException(status_code = 202, detail = "No invoices registered")
     
     invoicesList = {"Fecha" : [],
                     "Cliente" : [],

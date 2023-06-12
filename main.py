@@ -23,8 +23,12 @@ def getAllInvoices(db: Session = Depends(databaseService.getDB)):
 def getAllInvoicesBySupplier(invoiceSupplierName: str, db: Session = Depends(databaseService.getDB)):
     return invoiceService.getAllInvoicesBySupplier(db=db, invoiceSupplierName=invoiceSupplierName)
 
+@app.get("/api/paids")
+def getAllPaidsReceived(db: Session = Depends(databaseService.getDB)):
+    return invoiceService.getAllPaidsReceived(db=db)
+
 @app.post("/api/invoices/", response_model=invoiceSchema.Invoice)
-def createInvoiceFro(invoice: invoiceSchema.InvoiceCreate, db: Session = Depends(databaseService.getDB)):
+def createInvoice(invoice: invoiceSchema.InvoiceCreate, db: Session = Depends(databaseService.getDB)):
     return invoiceService.createInvoice(db=db, invoice=invoice)
 
 @app.post("/api/upload/", response_model=list[invoiceSchema.Invoice])
@@ -32,7 +36,7 @@ def uploadExcel(file: UploadFile = File(...), db: Session = Depends(databaseServ
     if not file:
         raise HTTPException(status_code = 400, detail = "No file sent")
     elif file.filename.endswith('.xlsx'):
-        return invoiceService.createInvoiceByExcel(db=db, file=file)
+        return invoiceService.createInvoiceFromExcel(db=db, file=file)
     else:
         raise HTTPException(status_code = 406, detail = "Invalid file extension")
 
