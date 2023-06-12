@@ -2,7 +2,7 @@
     <h1>Crediclub Tech Test</h1>
 </div> 
 
-> Rest API builded with FastApi  
+> Rest API builded with FastApi to process payments.
 
 ## Requirements
 - Python 3.7+.
