@@ -48,6 +48,8 @@ uvicorn main:app --reload
 
 Go to `http://127.0.0.1:8080/docs` to see the front-end API.
 
+![](https://github.com/xk4i/crediclub/blob/main/screenshots/preview.PNG?raw=true)
+
 
 
 
