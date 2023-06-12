@@ -15,7 +15,7 @@ git clone https://github.com/xk4i/crediclub.git
 ```
 - Create python venv:
 ```zsh
-cd `crediclub`
+cd crediclub
 python -m venv venv
 ```
 - Activate venv:
