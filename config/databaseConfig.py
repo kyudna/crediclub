@@ -2,7 +2,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 
 userName = "postgres"
-userPassword = "pesera11"
+userPassword = "root"
 
 server = "localhost"
 databaseName = "crediclub"

@@ -1,5 +1,5 @@
-from fastapi import FastAPI, Depends, UploadFile, HTTPException
-from fastapi.responses import FileResponse, StreamingResponse
+from fastapi import FastAPI, Depends, UploadFile, HTTPException, File
+from fastapi.responses import FileResponse
 
 from sqlalchemy.orm import Session
 
@@ -11,7 +11,7 @@ import os
 databaseService.addTables()
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DOWNLOAD_DIR = os.path.join(BASE_DIR, "pagos.csv")
+DOWNLOAD_DIR = os.path.join(BASE_DIR, "pagos.xlsx")
 
 app = FastAPI()
 
@@ -24,13 +24,15 @@ def getAllInvoicesBySupplier(invoiceSupplierName: str, db: Session = Depends(dat
     return invoiceService.getAllInvoicesBySupplier(db=db, invoiceSupplierName=invoiceSupplierName)
 
 @app.post("/api/invoices/", response_model=invoiceSchema.Invoice)
-def createInvoice(invoice: invoiceSchema.InvoiceCreate, db: Session = Depends(databaseService.getDB)):
+def createInvoiceFro(invoice: invoiceSchema.InvoiceCreate, db: Session = Depends(databaseService.getDB)):
     return invoiceService.createInvoice(db=db, invoice=invoice)
 
 @app.post("/api/upload/", response_model=list[invoiceSchema.Invoice])
-def uploadExcel(file: UploadFile, db: Session = Depends(databaseService.getDB)):
-    if file.filename.endswith('.xlsx'):
-        return invoiceService.createInvoiceByJson(db=db, file=file)
+def uploadExcel(file: UploadFile = File(...), db: Session = Depends(databaseService.getDB)):
+    if not file:
+        raise HTTPException(status_code = 400, detail = "No file sent")
+    elif file.filename.endswith('.xlsx'):
+        return invoiceService.createInvoiceByExcel(db=db, file=file)
     else:
         raise HTTPException(status_code = 406, detail = "Invalid file extension")
 
